@@ -1,5 +1,5 @@
 {
-  "name": "nodemongo",
+  "name": "nodemysqlmongodb",
   "version": "1.0.0",
   "description": "",
   "main": "app.js",
@@ -10,6 +10,7 @@
   "license": "ISC",
   "dependencies": {
     "express": "^4.17.1",
-    "mongoose": "^5.10.9"
+    "mongoose": "^5.10.9",
+    "mysql": "^2.18.1"
   }
 }
