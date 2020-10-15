@@ -1,4 +1,3 @@
-
 const express = require('express');
 const app = express();
 const mongoose = require('mongoose');
@@ -25,6 +24,3 @@ app.get('/', function (req, res) {
 app.listen(PORT, function () {
     console.log('Your node js server is running on PORT:', PORT);
 })
-
-
-

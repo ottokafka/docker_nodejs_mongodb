@@ -1,24 +1,37 @@
 version: '2'
 # Define the services/containers to be run
 services:
-  my_node_app: # name of the NodeJS app
-    build: ./ # specify the directory of the Dockerfile which is in same directory as docker-compose.yml
+  nodejs_server: # name of the NodeJS server
+    build: nodejs_server/ # specify the directory of the Dockerfile 
     ports:
       - "4000:4000" # specify the NodeJS port and open up port 4000 on docker
     links:
       - database_mongodb # name we use for mongoDB database_mongodb 
       - database_mysql # name we use for mongoDB database_mql
     volumes: # Allows changes to local host to sync with docker container
-      - ./:/app # should be the same as your WORKDIR in your DockerFile 
+      - ~/Programming/docker/mySQL_Mongodb_NodeJS/nodejs_server:/server # should be the same as your WORKDIR in your DockerFile 
     depends_on: # tells the database_mongodb to start first before the NodeJS app
       - database_mongodb
       - database_mysql
+  
+  react_ui: # name of the react_ui
+    build: react_ui/ # specify the directory of the Dockerfile 
+    ports:
+      - "4001:4001" # specify the reactJS port and open up port 4001 on docker
+    links:
+      - nodejs_server # name we use for nodeJS server  
+    volumes: # Allows changes to local host to sync with docker container
+      - ~/Programming/docker/mySQL_Mongodb_NodeJS/react_ui:/app # should be the same as your WORKDIR in your DockerFile 
      
   database_mongodb: # name of the mongoDB database_mongodb 
     image: mongo # this is the mongoDB image if you wanted MySQL you would use mysql 
+    ports: 
+      - "27017:27017" # specify the mongoDB port and connect port 27017 to docker
 
   database_mysql: # name of the mysql database_mysql 
     image: mysql # this is the mysql image if you wanted MySQL you would use mysql 
-    command: --default-authentication-plugin=mysql_native_password
+    ports: 
+      - "3306:3306" # specify the mySQL port and connect port 3306 to docker
+    command: --default-authentication-plugin=mysql_native_password # set default mySQL settings
     environment:
-      MYSQL_ROOT_PASSWORD: root
+      MYSQL_ROOT_PASSWORD: root # set the root password
