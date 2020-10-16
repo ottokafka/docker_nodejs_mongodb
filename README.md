@@ -12,3 +12,8 @@ Find the tutorial here
 git clone project
 docker-compose up --build
 
+### REACT JS
+needs some special things added for development mode
+
+Add this to the docker-compose.yml file
+tty: true
