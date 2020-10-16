@@ -15,13 +15,13 @@ services:
       - database_mysql
   
   react_ui: # name of the react_ui
-    build: react_ui/ # specify the directory of the Dockerfile 
+    build: reactjs_ui/ # specify the directory of the Dockerfile 
     ports:
       - "4001:4001" # specify the reactJS port and open up port 4001 on docker
     links:
       - nodejs_server # name we use for nodeJS server  
     volumes: # Allows changes to local host to sync with docker container
-      - ~/Programming/docker/mySQL_Mongodb_NodeJS/react_ui:/app # should be the same as your WORKDIR in your DockerFile 
+      - ~/Programming/docker/mySQL_Mongodb_NodeJS/reactjs_ui:/app # should be the same as your WORKDIR in your DockerFile 
      
   database_mongodb: # name of the mongoDB database_mongodb 
     image: mongo # this is the mongoDB image if you wanted MySQL you would use mysql 
