@@ -17,7 +17,7 @@ services:
   react_ui: # name of the react_ui
     build: reactjs_ui/ # specify the directory of the Dockerfile 
     ports:
-      - "4001:4001" # specify the reactJS port and open up port 4001 on docker
+      - "3000:3000" # specify the reactJS port and open up port 4001 on docker
     links:
       - nodejs_server # name we use for nodeJS server  
     volumes: # Allows changes to local host to sync with docker container
