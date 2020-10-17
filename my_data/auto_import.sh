@@ -1,1 +1,1 @@
-mongoimport --db=my_db --collection=stuff --file=docker-entrypoint-initdb.d/data.json
+mongoimport --db=mydb --collection=stuff --file=docker-entrypoint-initdb.d/data.json

@@ -17,7 +17,7 @@ services:
     ports: 
       - "27017:27017" # specify the mongoDB port and connect port 27017 to docker
     environment:
-      MONGO_INITDB_DATABASE: my_db # name of example database
+      MONGO_INITDB_DATABASE: mydb # name of example database
     volumes: # Add your mysql data to auto run on image startup
       - ./my_data/:/docker-entrypoint-initdb.d/
   
