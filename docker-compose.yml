@@ -2,6 +2,7 @@ version: '2'
 # Define the services/containers to be run
 services:
   nodejs_server: # name of the NodeJS server
+    container_name: nodejs
     build: ./ # specify the directory of the Dockerfile 
     ports:
       - "4000:4000" # specify the NodeJS port and open up port 4000 on docker
