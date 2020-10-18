@@ -3,7 +3,11 @@ version: '2'
 services:
   nodejs_server: # name of the NodeJS server
     container_name: nodejs
-    build: ./ # specify the directory of the Dockerfile 
+    image: node
+    entrypoint: 
+      - "sh"
+      - "-c"
+      - "npm install && npm install nodemon -g && nodemon server.js"
     ports:
       - "4000:4000" # specify the NodeJS port and open up port 4000 on docker
     links:
