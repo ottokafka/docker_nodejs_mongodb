@@ -22,7 +22,7 @@ services:
       - database_mongodb
       - database_mysql
   
-  reactjs_ui: # name of the react_ui
+  react_ui: # name of the react_ui
     image: node
     working_dir: "/app"
     entrypoint: 
