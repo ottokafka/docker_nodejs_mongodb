@@ -2,26 +2,41 @@ version: '2'
 # Define the services/containers to be run
 services:
   nodejs_server: # name of the NodeJS server
-    build: nodejs_server/ # specify the directory of the Dockerfile 
+    container_name: nodejs
+    image: node
+    working_dir: "/server"
+    entrypoint: 
+      - "sh"
+      - "-c"
+      - "npm install && npm install nodemon -g && nodemon server.js"
     ports:
       - "4000:4000" # specify the NodeJS port and open up port 4000 on docker
     links:
       - database_mongodb # name we use for mongoDB database_mongodb 
       - database_mysql # name we use for mongoDB database_mql
     volumes: # Allows changes to local host to sync with docker container
-      - ~/Programming/docker/mySQL_Mongodb_NodeJS/nodejs_server:/server # should be the same as your WORKDIR in your DockerFile 
+      - "./nodejs_server/:/server" # should be the same as your WORKDIR in your DockerFile 
+          # Don't sync the node_modules directory back to the client.
+      - "./server/node_modules"
     depends_on: # tells the database_mongodb to start first before the NodeJS app
       - database_mongodb
       - database_mysql
   
-  react_ui: # name of the react_ui
-    build: reactjs_ui/ # specify the directory of the Dockerfile 
+  reactjs_ui: # name of the react_ui
+    image: node
+    working_dir: "/app"
+    entrypoint: 
+      - "sh"
+      - "-c"
+      - "npm install && npm start"
     ports:
       - "3000:3000" # specify the reactJS port and open up port 4001 on docker
     links:
       - nodejs_server # name we use for nodeJS server  
     volumes: # Allows changes to local host to sync with docker container
-      - ~/Programming/docker/mySQL_Mongodb_NodeJS/reactjs_ui:/app # should be the same as your WORKDIR in your DockerFile 
+      - "./reactjs_ui/:/app" # should be the same as your WORKDIR in your DockerFile 
+          # Don't sync the node_modules directory back to the client.
+      - "./app/node_modules"
     tty: true # set tty to true in order to run reactJS in development mode
      
   database_mongodb: # name of the mongoDB database_mongodb 
