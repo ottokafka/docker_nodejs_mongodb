@@ -1,17 +1,24 @@
 version: '2'
-
 # Define the services/containers to be run
 services:
   my_node_app: # name of the NodeJS app
-    build: ./ # specify the directory of the Dockerfile which is in same directory as docker-compose.yml
+    image: node
+    entrypoint: 
+      - "sh"
+      - "-c"
+      - "npm install && npm install nodemon -g && nodemon server.js"
+    working_dir: "/app"
     ports:
       - "4000:4000" # specify the NodeJS port and open up port 4000 on docker
-    links:
-      - database # name we use for mongoDB database 
+   
     volumes: # Allows changes to local host to sync with docker container
-      - ./:/app # should be the same as your WORKDIR in your DockerFile 
-    depends_on: # tells the database to start first before the NodeJS app
-      - database
+      - ".:/app" # should be the same as your WORKDIR in your DockerFile 
+          # Don't sync the node_modules directory back to the client.
+      - "/app/node_modules"
+    links:
+      - database_mongodb # name we use for mongoDB database_mongodb 
+    depends_on: # tells the database_mongodb to start first before the NodeJS app
+      - database_mongodb
      
-  database: # name of the mongoDB database 
+  database_mongodb: # name of the mongoDB database_mongodb 
     image: mongo # this is the mongoDB image if you wanted MySQL you would use mysql 
