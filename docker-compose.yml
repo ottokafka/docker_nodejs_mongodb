@@ -9,7 +9,7 @@ services:
       - "npm install && npm install nodemon -g && nodemon server.js"
     working_dir: "/app"
     ports:
-      - "4000:4000" # specify the NodeJS port and open up port 4000 on docker
+      - "4009:4009" # specify the NodeJS port and open up port 4000 on docker
    
     volumes: # Allows changes to local host to sync with docker container
       - ".:/app" # should be the same as your WORKDIR in your DockerFile 
